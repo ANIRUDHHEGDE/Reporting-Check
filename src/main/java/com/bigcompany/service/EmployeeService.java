@@ -9,6 +9,10 @@ import java.util.stream.Collectors;
 
 public class EmployeeService {
     private static final Logger log = LoggerFactory.getLogger(EmployeeService.class);
+
+    private static final double LOWER_MULT = 1.2;
+    private static final double UPPER_MULT = 1.5;
+
     private final Map<String, Employee> byId;
     private final Employee ceo;
 
@@ -67,8 +71,8 @@ public class EmployeeService {
         for (Map.Entry<Employee, Double> e : avgMap.entrySet()) {
             Employee m = e.getKey();
             double avg = e.getValue();
-            double lower = avg * 1.2;
-            double upper = avg * 1.5;
+            double lower = avg * LOWER_MULT;
+            double upper = avg * UPPER_MULT;
             double sal = m.getSalary();
             if (sal < lower) underPaid.put(m, roundTwo(lower - sal));
             else if (sal > upper) overPaid.put(m, roundTwo(sal - upper));
